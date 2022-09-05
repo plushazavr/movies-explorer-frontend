@@ -1,0 +1,218 @@
+.search-form {
+  display: flex;
+  max-width: 1140px;
+  margin: 0 auto 10px;
+  padding: 70px 0 69px;
+  border-bottom: 1px solid #424242;
+  width: 100%;
+}
+
+.search-form__form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+  background-color: #2f2f2f;
+  border-radius: 9px;
+  width: 100%;
+}
+
+.search-form__input-container {
+  display: flex;
+  flex-direction: row;
+  /*justify-content: space-between;*/
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
+.search-form__input {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #8b8b8b;
+  background-color: transparent;
+  background-size: 22px 22px;
+  background-image: url("../../images/search-icon.svg");
+  background-repeat: no-repeat;
+  background-position: 25px 50%;
+  border: none;
+  height: 100%;
+  width: calc(100% - 150px);
+  padding-left: 63px;
+}
+
+.search-form__input:focus{
+  outline: none;
+}
+
+.search-form__input-container:focus-within {
+  box-shadow: 0 0 2pt 1pt #4285f4;
+  border-radius: 9px;
+}
+
+.search-form__button {
+  padding: 0;
+  position: absolute;
+  right: 30px;
+  bottom: 19px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background-color: #4285f4;
+  background-repeat: no-repeat;
+  background-image: url("../../images/search-button-icon.svg");
+  background-position: center;
+  background-size: 13px 14px;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.search-form__button:hover {
+  opacity: 0.8;
+}
+
+.search-form__checkbox-label {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 18px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-left: 1px solid #424242;
+  padding-left: 29px;
+  height: 40px;
+  padding-right: 30px;
+  cursor: pointer;
+}
+
+.search-form__checkbox-container {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  margin-right: 14px;
+
+}
+
+.search-form__checkbox-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #343434;
+  transition: .4s;
+  border-radius: 10px;
+}
+
+.search-form__checkbox-slider:before {
+  position: absolute;
+  content: "";
+  width: 16px;
+  height: 16px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #a0a0a0;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+.search-form__checkbox {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.search-form__checkbox:checked + .search-form__checkbox-slider {
+  background-color: #2be080;
+}
+
+/*.search-form__checkbox:focus + .search-form__checkbox-slider {*/
+/*  box-shadow: 0 0 1px #ffffff;*/
+/*}*/
+
+.search-form__checkbox:checked + .search-form__checkbox-slider:before {
+  transform: translateX(16px);
+  background-color: #ffffff;
+}
+
+
+@media screen and (max-width: 1200px) {
+  .search-form {
+    margin: 0 30px 10px;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .search-form {
+    padding: 80px 0 109px;
+  }
+
+  .search-form__input {
+    width: calc(100% - 140px);
+  }
+
+  .search-form__checkbox-label {
+    padding-left: 19px;
+    padding-right: 20px;
+  }
+
+  .search-form__button {
+    right: 19px;
+  }
+}
+
+@media screen and (max-width: 689px) {
+  .search-form {
+    padding-bottom: 44px;
+  }
+
+  .search-form__form {
+    flex-direction: column;
+    height: auto;
+    background-color: transparent;
+  }
+
+  .search-form__input-container {
+    height: 72px;
+    margin-bottom: 45px;
+    background-color: #2f2f2f;
+    border-radius: 9px;
+  }
+
+  .search-form__input {
+    background-image: none;
+    padding-left: 19px;
+    width: calc(100% - 100px);
+    font-size: 14px;
+  }
+
+  .search-form__checkbox-label {
+    font-size: 11px;
+    border: none;
+    padding: 0;
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .search-form {
+    width: 368px;
+    margin: 0 auto;
+  }
+}
+
+@media screen and (max-width: 388px) {
+  .search-form {
+    width: auto;
+    margin: 0 10px 10px;
+  }
+}
