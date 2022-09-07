@@ -28,7 +28,6 @@ export default function AboutProject() {
           <p className="scale__part-caption">Back-end</p>
           <p className="scale__part-caption">Front-end</p>
         </div>
-
       </div>
     </section>
   )

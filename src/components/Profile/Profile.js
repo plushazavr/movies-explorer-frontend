@@ -12,7 +12,7 @@ export default function Profile(props) {
       />
       <section className="profile">
         <form className="profile__form">
-          <p className="profile__greeting">Привет, Виталий!</p>
+          <p className="profile__greeting">Привет, Екатерина!</p>
           <div className="profile__inputs">
             <label className="profile__label">
               <input className="profile__input" type="text" required/>

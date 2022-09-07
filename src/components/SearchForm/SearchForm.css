@@ -21,7 +21,6 @@
 .search-form__input-container {
   display: flex;
   flex-direction: row;
-  /*justify-content: space-between;*/
   align-items: center;
   height: 100%;
   width: 100%;
@@ -134,15 +133,10 @@
   background-color: #2be080;
 }
 
-/*.search-form__checkbox:focus + .search-form__checkbox-slider {*/
-/*  box-shadow: 0 0 1px #ffffff;*/
-/*}*/
-
 .search-form__checkbox:checked + .search-form__checkbox-slider:before {
   transform: translateX(16px);
   background-color: #ffffff;
 }
-
 
 @media screen and (max-width: 1200px) {
   .search-form {

@@ -27,8 +27,6 @@
   margin: 0;
   padding: 0;
   display: grid;
-  /*grid-template-columns: repeat(auto-fit, minmax(300px, 360px));*/
-  /*grid-template-columns: repeat(auto-fit, 360px);*/
   grid-template-columns: minmax(300px, 236px) minmax(300px, 236px) minmax(300px, 236px);
   gap: 30px;
   justify-content: center;

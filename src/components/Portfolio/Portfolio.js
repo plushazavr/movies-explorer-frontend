@@ -4,7 +4,7 @@ import avatar from '../../images/avatar.jpg'
 
 export default function Portfolio() {
   return (
-    <section className="portfolio">
+    <section className="portfolio" id='portfolio'>
       <div className="portfolio__container">
         <h2 className="portfolio__title">Студент</h2>
         <article className="about">
