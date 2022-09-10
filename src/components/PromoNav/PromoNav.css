@@ -1,0 +1,38 @@
+.promo__nav {
+  height: 66px;
+  background-color: #272727;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.promo__link {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-decoration-line: underline;
+  color: #FFFFFF;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.promo__link:hover {
+  opacity: 0.8;
+}
+
+.promo__link:nth-of-type(2) {
+  margin: 0px 40px;
+}
+
+@media screen and (max-width: 420px) {
+  .promo__link {
+    font-size: 11px;
+  }
+
+  .promo__link:nth-of-type(2) {
+    margin: 0px 24px;
+  }
+}

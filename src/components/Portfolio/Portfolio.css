@@ -1,0 +1,257 @@
+.portfolio__container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 110px 0 105px;
+}
+
+.portfolio__title {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  width: 100%;
+  padding-bottom: 23px;
+  border-bottom: 1px solid #dadada;
+  margin: 0;
+}
+
+.about {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 66px 0 101px;
+}
+
+.about__name {
+  font-size: 50px;
+  font-weight: 400;
+  line-height: 58px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  margin: 0 0 18px;
+}
+
+.about__profession {
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #ffffff;
+  margin: 0 0 26px;
+}
+
+.about__bio {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #ffffff;
+  max-width: 600px;
+  margin: 0 0 99px;
+}
+
+.about__photo {
+  display: block;
+  max-width: 270px;
+  max-height: 327px;
+  object-fit: cover;
+  margin-left: 49px;
+  border-radius: 10px;
+}
+
+.about__links-list {
+  display: flex;
+  flex-direction: row;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about__links-element {
+  margin-right: 20px;
+}
+
+.about__links-element:last-of-type {
+  margin-right: 0;
+}
+
+.about__link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.about__link:hover {
+  opacity: 0.7;
+}
+
+.portfolio__subtitle {
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #8b8b8b;
+  margin: 0;
+}
+
+.portfolio__links-list {
+  display: flex;
+  flex-direction: column;
+  margin: 30px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.portfolio__links-element {
+  border-bottom: 1px solid #424242;
+}
+
+.portfolio__links-element:last-of-type {
+  border-bottom: none;
+}
+
+.portfolio__link {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  text-decoration: none;
+  padding-top: 20px;
+  padding-bottom: 19px;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+  cursor: pointer;
+}
+
+.portfolio__link:hover {
+  opacity: 0.7;
+}
+
+@media screen and (max-width: 1200px) {
+  .portfolio__container {
+    margin: 0 30px;
+  }
+}
+
+@media screen and (max-width: 810px) {
+  .portfolio__container {
+    margin: 0 50px;
+    padding: 90px 0 70px;
+  }
+
+  .about {
+    padding-bottom: 91px;
+  }
+
+  .about__name {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 16px;
+  }
+
+  .about__profession {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 20px;
+  }
+
+  .about__bio {
+    font-size: 12px;
+    line-height: 18px;
+    max-width: 364px;
+    margin-bottom: 87px;
+  }
+
+  .about__photo {
+    max-width: 255px;
+    max-height: 307px;
+  }
+
+  .portfolio__link {
+    font-size: 28px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .about {
+    flex-direction: column-reverse;
+    align-items: center;
+    max-width: 292px;
+    margin: 0 auto;
+    padding: 60px 0 66px;
+  }
+
+  .about__photo {
+    margin: 0 0 40px;
+    max-width: 292px;
+    min-height: 352px;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .portfolio__container {
+    padding: 66px 0 50px;
+  }
+
+  .portfolio__title{
+    font-size: 18px;
+    line-height: 22px;
+    padding-bottom: 28px;
+  }
+
+  .about {
+    padding-bottom: 70px;
+  }
+
+  .about__name {
+    font-size: 30px;
+    line-height: 36px;
+    margin-bottom: 20px;
+  }
+
+  .about__profession {
+    font-size: 11px;
+    line-height: 16px;
+  }
+
+  .about__bio {
+    font-size: 11px;
+    line-height: 16px;
+    margin-bottom: 40px;
+  }
+
+  .about__links-element {
+    margin-right: 26px;
+  }
+
+  .portfolio__subtitle {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .portfolio__links-list {
+    margin-top: 20px;
+  }
+
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+}
+
+@media screen and (max-width: 388px) {
+  .portfolio__container {
+    margin: 0 14px;
+  }
+}
