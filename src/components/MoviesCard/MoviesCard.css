@@ -1,18 +1,9 @@
-
-
-/*.card * {*/
-/*  outline: 1px solid red;*/
-/*}*/
-
 .card {
   display: block;
-  /*flex-direction: column;*/
   margin: 0;
   padding: 0;
-  /*width: 100%;*/
-  /*max-width: 364px;*/
-  /*max-height: 271px;*/
-
+  min-height: 236px;
+  background-color: #222222;
 }
 
 .card__container {
@@ -22,33 +13,21 @@
   align-items: center;
   max-height: 271px;
   margin-bottom: 14px;
-  /*max-width: 360px;*/
-  /*max-height: 260px;*/
   background-color: transparent;
   margin: 0;
-  /*width: 100%;*/
+  padding: 14px;
 }
 
 .card__link {
-  /*width: 100%;*/
   display: flex;
-  /*max-width: 360px;*/
-  /*max-height: 201px;*/
-  /*min-width: 300px;*/
-  border-radius: 6px;
   text-decoration: none;
   overflow: hidden;
   position: relative;
   width: 100%;
-  /*height: 0;*/
-  /*padding-bottom: 55.8%;*/
-  /*position: relative;*/
 }
 
 .card__image {
   width: 100%;
-  /*height: 201px;*/
-  /*position: absolute;*/
   height: 201px;
   display: block;
   object-fit: cover;
@@ -60,8 +39,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 63px;
-  margin: 0;
+  
 }
 
 .card__name {
@@ -76,15 +54,14 @@
 
 .card__duration {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   font-size: 11px;
   font-weight: 400;
   line-height: 10px;
-  color: #8b8b8b;
+  color: #8B8B8B;
   margin: 0;
   margin-top: 9px;
-  background-color: #2f2f2f;
   border-radius: 3px;
   width: 52px;
   height: 18px;
@@ -146,12 +123,6 @@
   opacity: 1;
 }
 
-@media screen and (max-width: 1019px) {
-  .card__caption {
-    margin: 25px 0 0;
-    height: 33px;
-  }
-}
 
 @media screen and (max-width: 768px) {
   .card__image {
@@ -160,12 +131,7 @@
 }
 
 @media screen and (max-width: 689px) {
-  .card__caption {
-    margin: 16px 0 0;
-    height: 44px;
-  }
-
-  .card__name {
+   .card__name {
     font-size: 12px;
     line-height: 15px;
   }
@@ -191,6 +157,6 @@
 
 @media screen and (max-width: 320px) {
   .card {
-    height: 228px;
+    height: 100%;
   }
 }

@@ -8,7 +8,7 @@ export default function MoviesCard({
     handleSaveMovie,
     handleRemoveMovie,
   }) {
-  const { image, nameRU, duration, trailer } = movie;
+  const { image, nameRU, duration, trailerLink } = movie;
 
   let isSaved = false;
   let savedId;
@@ -39,7 +39,7 @@ export default function MoviesCard({
         
       </figure>
       <a className="card__link"
-            href={trailer}
+            href={trailerLink}
             rel="noreferrer"
             target="_blank">
           <img className="card__image" src={image} alt={nameRU}/>

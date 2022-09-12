@@ -151,7 +151,7 @@ function App() {
             year : item.year || UNKNOWN_STRING,
             description : item.description || UNKNOWN_STRING,
             image: imageUrl ? BEATFILM_SOURCE_URL + imageUrl : UNKNOWN_IMAGE_URL,
-            trailer: item.trailerLink ? item.trailerLink : UNKNOWN_TRAILER_URL,
+            trailerLink: item.trailerLink ? item.trailerLink : UNKNOWN_TRAILER_URL,
             thumbnail: thumbnailUrl ? BEATFILM_SOURCE_URL + thumbnailUrl : UNKNOWN_IMAGE_URL,
             movieId: item.id || UNKNOWN_NUMBER,
             nameRU : item.nameRU || UNKNOWN_STRING,
