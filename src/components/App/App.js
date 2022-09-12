@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import Header from "../Header/Header";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
-import Menu from "../Menu/Menu";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import Register from "../Register/Register";
@@ -15,6 +14,7 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import * as mainApi from "../../utils/MainApi";
 import * as moviesApi from "../../utils/MoviesApi";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Menu from "../Menu/Menu";
 import {
   BEATFILM_SOURCE_URL,
   UNKNOWN_STRING,

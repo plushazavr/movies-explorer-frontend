@@ -5,6 +5,7 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 import useWindowWidth from "../../utils/useWindowWidth";
+
 import {
   WIDTH_FOR_3,
   WIDTH_FOR_2,
@@ -29,7 +30,8 @@ export default function Movies(
     setIntoLocalStorage,
     getFromLocalStorage,
     globalError,
-}) {
+  }) {
+
   const { width } = useWindowWidth();
   const [ searchInput, setSearchInput ] = React.useState([]);
   const [ checkboxActivated, setCheckboxActivated ] = React.useState(false);
@@ -96,7 +98,8 @@ export default function Movies(
         onOpenMenu={onOpenMenu}
       />
 
-      <SearchForm isLoading={isLoading}
+      <SearchForm
+        isLoading={isLoading}
         setSearchInput={setSearchInput}
         setCheckboxActivated={setCheckboxActivated}
       />
@@ -113,7 +116,6 @@ export default function Movies(
         searchCompleted={searchCompleted}
         globalError={globalError}
       />
-
       <Footer/>
     </div>
   )

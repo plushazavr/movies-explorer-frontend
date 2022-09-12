@@ -1,3 +1,4 @@
+/* Блоки */
 .page {
   font-family: Inter, Arial, sans-serif;
   -moz-osx-font-smoothing: grayscale;
@@ -11,6 +12,24 @@
   min-width: 320px;
 }
 
+/* Элементы */
 .page__header-container {
   background-color: #073042;
 }
+
+/*.page__preloader {*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  bottom: 0;*/
+/*  right: 0;*/
+/*  z-index: 10;*/
+/*  display: none;*/
+/*  align-items: center;*/
+/*  justify-content: center;*/
+/*  background-color: rgba(0, 0, 0, 0.7);*/
+/*}*/
+
+/*.page__preloader_enabled {*/
+/*  display: flex;*/
+/*}*/

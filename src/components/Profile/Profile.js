@@ -6,16 +6,16 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import GlobalPreloader from "../GlobalPreloader/GlobalPreloader";
 
 export default function Profile({
-  isLoggedIn,
-  onLogout,
-  onOpenMenu,
-  onUpdate,
-  isLoading,
-  errorMessage,
-  setErrorMessage,
-  successMessage,
-  setSuccessMessage
-}) {
+    isLoggedIn,
+    onLogout,
+    onOpenMenu,
+    onUpdate,
+    isLoading,
+    errorMessage,
+    setErrorMessage,
+    successMessage,
+    setSuccessMessage
+  }) {
   const formWithValidation = useFormWithValidation();
   const { name, email } = formWithValidation.values;
   const { values, setValues, handleChange, errors, isValid } = formWithValidation;
@@ -43,18 +43,21 @@ export default function Profile({
 
   return (
     <>
-      <Header
-        isLoggedIn={isLoggedIn}
-        onOpenMenu={onOpenMenu}
-      />
-      <section className="profile">
-        <form className="profile__form"
+      <div className="profile">
+        <Header
+          isLoggedIn={isLoggedIn}
+          onOpenMenu={onOpenMenu}
+        />
+        <form
+          className="profile__form"
           onSubmit={handleSubmit}
-          noValidate>
+          noValidate
+        >
           <p className="profile__greeting">{`Привет, ${currentUser.name}!`}</p>
           <div className="profile__inputs">
             <label className="profile__label">
-              <input className={`profile__input ${errors.name && 'profile__input_type_error'}`}
+              <input
+                className={`profile__input ${errors.name && 'profile__input_type_error'}`}
                 type="text"
                 name="name"
                 minLength="2"
@@ -62,18 +65,21 @@ export default function Profile({
                 value={values.name || ''}
                 onChange={handleChange}
                 disabled={!isEdited || isLoading}
-                required/>
+                required
+              />
               <span className="profile__input-title">Имя</span>
               <span className={`profile__input-error ${errors.name && 'profile__input-error_visible'}`}>{errors.name}</span>
             </label>
             <label className="profile__label">
-              <input cclassName={`profile__input ${errors.email && 'profile__input_type_error'}`}
+              <input
+                className={`profile__input ${errors.email && 'profile__input_type_error'}`}
                 type="email"
                 name="email"
                 value={values.email || ''}
                 onChange={handleChange}
                 disabled={!isEdited || isLoading}
-                required/>
+                required
+              />
               <span className="profile__input-title">E-mail</span>
               <span className={`profile__input-error ${errors.email && 'profile__input-error_visible'}`}>{errors.email}</span>
             </label>
@@ -92,7 +98,7 @@ export default function Profile({
             </button>
           </div>
         </form>
-      </section>
+      </div>
       <GlobalPreloader isLoading={isLoading} />
     </>
   )

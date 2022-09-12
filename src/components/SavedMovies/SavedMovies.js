@@ -5,17 +5,19 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 
-export default function SavedMovies({
-  isLoggedIn,
-  onOpenMenu,
-  savedMovies,
-  handleGetSavedMovies,
-  handleRemoveMovie,
-  onSearch,
-  onFilter,
-  isLoading,
-  globalError,
-}) {
+export default function SavedMovies(
+  {
+    isLoggedIn,
+    onOpenMenu,
+    savedMovies,
+    handleGetSavedMovies,
+    handleRemoveMovie,
+    onSearch,
+    onFilter,
+    isLoading,
+    globalError,
+  }) {
+
   React.useEffect(() => {
     handleGetSavedMovies();
   }, []);
@@ -44,17 +46,21 @@ export default function SavedMovies({
         isLoggedIn={isLoggedIn}
         onOpenMenu={onOpenMenu}
       />
+
       <SearchForm
-      isLoading={isLoading}
-      setSearchInput={setSearchInput}
-      setCheckboxActivated={setCheckboxActivated}
+        isLoading={isLoading}
+        setSearchInput={setSearchInput}
+        setCheckboxActivated={setCheckboxActivated}
       />
+
       <MoviesCardList
-      isSavedMoviesList={true}
-      savedMovies={savedMovies}
-      handleRemoveMovie={handleRemoveMovie}
-      moviesList={checkboxActivated ? filteredMovies : foundMovies}
-      globalError={globalError}/>
+        isSavedMoviesList={true}
+        savedMovies={savedMovies}
+        handleRemoveMovie={handleRemoveMovie}
+        moviesList={checkboxActivated ? filteredMovies : foundMovies}
+        globalError={globalError}
+      />
+
       <Footer/>
     </div>
   )
