@@ -1,7 +1,7 @@
 # movies-explorer-frontend
 Frontend for Diploma WebDeveloper by YandexPracticum
 
-https://github.com/plushazavr/movies-explorer-frontend/pull/2
+пулл реквест - https://github.com/plushazavr/movies-explorer-frontend/pull/2
 
 ### [FRONTEND](https://diploma.kazantseva.nomoredomains.sbs)
 
