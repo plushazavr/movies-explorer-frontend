@@ -58,6 +58,7 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
                   onChange={handleChange}
                   disabled={isLoading}
                   required
+                  pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
                 <span className={`register__input-error ${errors.email && 'register__input-error_visible'}`}>{errors.email}</span>
               </label>

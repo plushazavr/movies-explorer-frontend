@@ -35,7 +35,7 @@ export default function Navigation(props) {
           </ul>
         </li>
         <li className="navigation__element">
-          <NavLink
+        <NavLink
             className="navigation__profile-button"
             activeClassName="navigation__profile-button_active"
             onClick={props.onClose}

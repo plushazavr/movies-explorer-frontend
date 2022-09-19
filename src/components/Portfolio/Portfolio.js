@@ -12,7 +12,7 @@ export default function Portfolio() {
             <h3 className="about__name">Екатерина</h3>
             <p className="about__profession">Фронтенд-разработчик, 28 лет</p>
             <p className="about__bio">
-            Я родилась в Чите, сейчас живу в Санкт-Петербурге. Закончила лечебный факультет ЧГМА.  Люблю читать комиксы и геймить, воспитываю двух собак и кота. Недавно начала кодить. Сейчас работаю в компании «Lifetime+». Прошла курс по веб-разработке и хочу связать свою дальнейшую карьеру с дизайном и разработкой веб-интерфейсов.
+              Я родилась в Чите, сейчас живу в Санкт-Петербурге. Закончила лечебный факультет ЧГМА.  Люблю читать комиксы и геймить, воспитываю двух собак и кота. Недавно начала кодить. Сейчас работаю в компании «Lifetime+». Прошла курс по веб-разработке и хочу связать свою дальнейшую карьеру с дизайном и разработкой веб-интерфейсов.
             </p>
             <ul className="about__links-list">
                <li className="about__links-element">
@@ -24,7 +24,7 @@ export default function Portfolio() {
               </li>
             </ul>
           </div>
-          <img className="about__photo" src={avatar} alt="Аватар"/>
+          <img className="about__photo" src={avatar} alt="Фото"/>
         </article>
         <h3 className="portfolio__subtitle">Портфолио</h3>
         <ul className="portfolio__links-list">

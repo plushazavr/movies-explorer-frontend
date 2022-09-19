@@ -34,16 +34,13 @@ export default function MoviesCard({
             isSaved ? handleRemoveMovie(movie._id ? movie._id  : savedId) : handleSaveMovie(movie)
           }}>
         </button>
-        
-        
-        
       </figure>
       <a className="card__link"
             href={trailerLink}
             rel="noreferrer"
             target="_blank">
-          <img className="card__image" src={image} alt={nameRU}/>
-        </a>
+        <img className="card__image" src={image} alt={nameRU}/>
+      </a>
     </li>
   )
 }
