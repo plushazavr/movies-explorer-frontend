@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-
+import './SearchForm.css';
 import { filterDuration, filterMovies } from "../../utils/FilterMovies";
 
 function SearchForm({

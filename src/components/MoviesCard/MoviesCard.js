@@ -1,45 +1,58 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './MoviesCard.css';
-import { durationConverter } from '../../utils/durationConverter';
+import CardButton from "../CardButton/CardButton";
 
 export default function MoviesCard({
-    isSavedMoviesList,
-    savedMovies, movie,
-    handleSaveMovie,
-    handleRemoveMovie,
+  movie,
+  onCardSaved,
+  onCardDelete,
+  pageSavedMovies,
+  savedMovies
   }) {
-  const { image, nameRU, duration, trailerLink } = movie;
+    const baseURL = 'https://api.nomoreparties.co';
 
-  let isSaved = false;
-  let savedId;
-  isSaved = savedMovies.some((item) => {
-    if (item.movieId === movie.movieId) {
-      savedId = item._id;
-      return true;
+    const [isButtonHidden, setIsButtonHidden] = useState(true);
+  
+    const isSaved = movie.id && savedMovies.some(el => el.movieId === movie.id);
+  
+    const showButton = () => {
+      setIsButtonHidden(false)
     }
-    return false;
-  });
+  
+    const hideButton = () => {
+      setIsButtonHidden(true)
+    }
+  
+    function getTime(duration) {
+      const hours = Math.trunc(duration / 60);
+      const min = duration % 60;
+      return hours + 'ч ' + min + 'м';
+    }
 
-  const cardButtonClassName = (`card__button ${isSavedMoviesList ? 'card__button_type_remove' : isSaved ? 'card__button_saved' : 'card__button_type_save' }`);
-
-  return (
-    <li className="card">
+    return (
+    <li className="card" onMouseOver={showButton}
+    onMouseOut={hideButton}>
       <figure className="card__container">
         <figcaption className="card__caption">
-          <p className="card__name">{nameRU}</p>
-          <p className="card__duration">{durationConverter(duration)}</p>
+          <p className="card__name">{movie.nameRU}</p>
+          <p className="card__duration">{getTime(movie.duration)}</p>
         </figcaption>
-        <button
-          className={cardButtonClassName} onClick={() => {
-            isSaved ? handleRemoveMovie(movie._id ? movie._id  : savedId) : handleSaveMovie(movie)
-          }}>
-        </button>
+        <CardButton
+            movie={movie}
+            onCardSaved={onCardSaved}
+            onCardDelete={onCardDelete}
+            isSaved={isSaved}
+            pageSavedMovies={pageSavedMovies}
+            savedMovies={savedMovies}
+            isButtonHidden={isButtonHidden}
+          />
       </figure>
       <a className="card__link"
-            href={trailerLink}
+            href={movie.trailerLink}
             rel="noreferrer"
             target="_blank">
-        <img className="card__image" src={image} alt={nameRU}/>
+        <img className="card__image" src={movie.image.url ? `${baseURL}/${movie.image.url}` : movie.image}
+            alt={movie.nameRU}/>
       </a>
     </li>
   )
