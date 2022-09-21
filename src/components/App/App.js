@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from "../Header/Header";
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import Register from "../Register/Register";
@@ -10,20 +10,13 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import Profile from "../Profile/Profile";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import * as mainApi from "../../utils/MainApi";
-import * as moviesApi from "../../utils/MoviesApi";
-import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Menu from "../Menu/Menu";
-import {
-  BEATFILM_SOURCE_URL,
-  UNKNOWN_STRING,
-  UNKNOWN_NUMBER,
-  UNKNOWN_IMAGE_URL,
-  UNKNOWN_TRAILER_URL,
-  UNAUTHORIZED,
-  SHORT_FILM_DURATION,
-} from '../../utils/constants';
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import * as auth from "../../utils/auth";
+import { api } from "../../utils/MainApi";
+import { moviesApi } from '../../utils/MoviesApi'
+import { filterDuration, filterMovies } from "../../utils/FilterMovies";
 
 function App() {
   const [ isMenuOpen, setIsMenuOpen ] = React.useState(false);

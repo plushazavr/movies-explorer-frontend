@@ -1,94 +1,88 @@
-import { BASE_URL } from "./constants";
-import { getResponse } from "./getResponse";
+class Api {
+  constructor(options) {
+    this._url = options.baseURL
+    this._headers = options.headers
+  }
 
-export const register = ({ email, password, name }) => {
-  return fetch(`${BASE_URL}/signup`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ password, email, name }),
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+  _checkRes(res) {
+    if (res.ok) {
+      return res.json()
+    } else {
+      return Promise.reject(`ERROR! => ${res.status}`)
+    }
+  }
 
-export const login = ({ email, password }) => {
-  return fetch(`${BASE_URL}/signin`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
+  getUserInfo() {
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers,
+      credentials: 'include',
     },
-    body: JSON.stringify({ password, email }),
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+    )
+      .then(this._checkRes)
+  };
 
-export const logout = () => {
-  return fetch(`${BASE_URL}/signout`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+  editUserInfo(userName, userEmail) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        name: userName,
+        email: userEmail
+      })
+    })
 
-export const updateUser = ({ name, email }) => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'PATCH',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ name, email }),
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+      .then(this._checkRes)
+  }
 
-export const getUser = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json"
+  getInitialMovies() {
+    return fetch(`${this._url}/movies`, {
+      headers: this._headers,
+      credentials: 'include',
     },
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+    )
+      .then(this._checkRes)
+  };
 
-export const getSavedMovies = () => {
-  return fetch(`${BASE_URL}/movies`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+  saveNewMovie(movie) {
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      credentials: 'include',
+      body: JSON.stringify({
+        country: movie.country ? movie.country : "Страна не указана",
+        director: movie.director ? movie.director : "Режиссер не указан",
+        duration: movie.duration,
+        year: movie.year ? movie.year : "Год не указан",
+        description: movie.description ? movie.description : "Описание не указано",
+        image: `https://api.nomoreparties.co/${movie.image.url}`,
+        trailerLink: movie.trailerLink ? movie.trailerLink : "Трейлера нет",
+        nameRU: movie.nameRU ? movie.nameRU : "Название не указано",
+        nameEN: movie.nameEN ? movie.nameEN : "Назввание не указано",
+        thumbnail: `https://api.nomoreparties.co/${movie.image.formats.thumbnail.url}`,
+        movieId: movie.id,
+        owner: movie.owner
+      })
+    })
+      .then(this._checkRes)
+  }
 
-export const saveMovie = (movie) => {
-  return fetch(`${BASE_URL}/movies`, {
-    method: 'POST',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(movie),
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+  deleteMovie(id) {
+    return fetch(`${this._url}/movies/${id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+      credentials: 'include',
+    })
 
-export const removeMovie = (id) => {
-  return fetch(`${BASE_URL}/movies/${id}`, {
-    method: 'DELETE',
-    headers: {
-      "Content-Type": "application/json"
-    },
-    credentials: 'include',
-  })
-    .then(getResponse)
-};
+      .then(this._checkRes)
+  }
+}
+
+export const api = new Api({
+  baseURL: 'http://localhost:3000',
+ 
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  }
+});
