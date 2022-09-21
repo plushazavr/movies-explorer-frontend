@@ -2,19 +2,7 @@ import React from 'react';
 import './SearchForm.css';
 import {useFormWithValidation} from "../../utils/ReactValidation";
 
-export default function SearchForm({ isLoading, setSearchInput, setCheckboxActivated }) {
-  const formWithValidation = useFormWithValidation();
-  const { search } = formWithValidation.values;
-  const { values, handleChange, errors, isValid } = formWithValidation;
-
-  function handleSearchClick(evt) {
-    evt.preventDefault();
-    setSearchInput(search);
-  }
-
-  function handleCheckboxClick(value) {
-    setCheckboxActivated(value);
-  }
+export default function SearchForm({}) {
 
   return (
     <section className="search-form">

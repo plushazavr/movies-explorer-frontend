@@ -6,39 +6,7 @@ import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
 
 export default function SavedMovies(
-  {
-    isLoggedIn,
-    onOpenMenu,
-    savedMovies,
-    handleGetSavedMovies,
-    handleRemoveMovie,
-    onSearch,
-    onFilter,
-    isLoading,
-    globalError,
-  }) {
-
-  React.useEffect(() => {
-    handleGetSavedMovies();
-  }, []);
-
-  const [ searchInput, setSearchInput ] = React.useState([]);
-  const [ checkboxActivated, setCheckboxActivated ] = React.useState(false);
-  const [ foundMovies, setFoundMovies ] = React.useState(savedMovies);
-  const [ filteredMovies, setFilteredMovies ] = React.useState([]);
-
-  React.useEffect(() => {
-    searchHandler();
-    filterHandler();
-  }, [checkboxActivated, searchInput, handleRemoveMovie]);
-
-  function searchHandler() {
-    setFoundMovies(onSearch(savedMovies, searchInput));
-  }
-
-  function filterHandler() {
-    setFilteredMovies(onFilter(foundMovies));
-  }
+  {}) {
 
   return (
     <div className="saved-movies">
