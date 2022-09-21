@@ -1,39 +1,101 @@
-import React from 'react';
-import './SearchForm.css';
-import {useFormWithValidation} from "../../utils/ReactValidation";
+import React, { useEffect } from "react";
+import { useState } from "react";
 
-export default function SearchForm({}) {
+import { filterDuration, filterMovies } from "../../utils/FilterMovies";
+
+function SearchForm({
+  setIsLoading,
+  movies,
+  setMovies,
+  setIsNotMovies,
+  pageSavedMovies,
+  isChecked,
+  setIsChecked,
+  shownMovies,
+  onSearch
+}) {
+  const handleToggle = () => {
+    setIsChecked(!isChecked);
+    checkboxActive(!isChecked)
+  }
+
+  const [isSearch, setIsSearch] = useState('');
+  const [isError, setIsError] = useState(false);
+
+  useEffect(() => {
+    const lastMovieRequest = JSON.parse(localStorage.getItem("lastMoviesRequest"));
+
+    if (pageSavedMovies) {
+      setIsSearch('');
+
+    } else {
+      setIsSearch(lastMovieRequest)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const handleChange = (evt) => {
+    setIsSearch(evt.target.value);
+    setIsError(false)
+  }
+
+  const checkboxActive = (isChecked) => {
+    setIsNotMovies(false)
+    if (isChecked) {
+      filterDuration(shownMovies).length === 0
+        ? setIsNotMovies(true)
+        : setMovies(filterDuration(shownMovies));
+    } else {
+      pageSavedMovies
+        ? setMovies(movies)
+        : filterMovies(movies, isSearch) === 0
+          ? setIsNotMovies(true)
+          : setMovies(filterMovies(movies, isSearch));
+    }
+  }
+
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    if (!isSearch) {
+      setIsError(true)
+    } else {
+      setIsLoading(true);
+      onSearch(isSearch)
+      setIsLoading(false)
+    }
+  }
 
   return (
     <section className="search-form">
       <form
         className="search-form__form"
-        onSubmit={handleSearchClick}
+        onSubmit={handleFormSubmit}
         noValidate
       >
-        <label className={`search-form__input-container ${errors.search && 'search-form__input-container_type_error'}`}>
+        <label className='search-form__input-container'>
           <input
             className="search-form__input"
             type="text"
             name="search"
-            value={values.search || ''}
+            value={isSearch || ''}
             onChange={handleChange}
-            disabled={isLoading}
             placeholder="Фильм"
             required/>
           <button
-            className={`search-form__button ${!isValid && 'search-form__button_disabled'}`}
+            className='search-form__button'
             type="submit"
-            disabled={!isValid || isLoading}
           />
-          <span className={`search__input-error ${errors.search && 'search__input-error_visible'}`}>{errors.search}</span>
+          <span className='search__input-error'></span>
         </label>
         <label className="search-form__checkbox-label">
           <div className="search-form__checkbox-container">
             <input
               className="search-form__checkbox"
               type="checkbox"
-              onChange={(evt) => handleCheckboxClick(evt.target.checked)}
+              id="checkbox"
+              checked={isChecked}
+              onChange={handleToggle}
             />
             <span className="search-form__checkbox-slider" />
           </div>
@@ -43,3 +105,5 @@ export default function SearchForm({}) {
     </section>
   );
 };
+
+export default SearchForm;
