@@ -1,5 +1,5 @@
-const baseURL = 'http://localhost:3000';
-//const baseURL = 'https://api.diploma.kazantseva.nomoredomains.sbs';
+//const baseURL = 'http://localhost:3000';
+const baseURL = 'https://api.diploma.kazantseva.nomoredomains.sbs';
 
 function checkRes(res) {
     if (res.ok) {

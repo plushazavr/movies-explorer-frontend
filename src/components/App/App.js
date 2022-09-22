@@ -20,7 +20,6 @@ import { filterDuration, filterMovies } from "../../utils/FilterMovies";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const allMovies = JSON.parse(localStorage.getItem('allMovies'));
   const [shownMovies, setShownMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
