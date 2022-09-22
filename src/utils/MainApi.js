@@ -79,7 +79,8 @@ class Api {
 }
 
 export const api = new Api({
-  baseURL: 'http://localhost:3000',
+  //baseURL: 'http://localhost:3000',
+  baseURL: 'https://api.diploma.kazantseva.nomoredomains.sbs',
  
   headers: {
     'Accept': 'application/json',
