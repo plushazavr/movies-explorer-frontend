@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from "react-router-dom";
 import './Navigation.css';
 
-export default function Navigation(isLoggedIn) {
+export default function Navigation({isLoggedIn}) {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const handleOpenMenu = () => {
     setIsOpenMenu(true)

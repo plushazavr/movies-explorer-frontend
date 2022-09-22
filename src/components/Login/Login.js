@@ -3,20 +3,13 @@ import { Link } from "react-router-dom";
 import './Login.css';
 import logo from '../../images/logo.svg';
 import { useFormWithValidation } from "../../utils/ReactValidation";
-import GlobalPreloader from "../GlobalPreloader/GlobalPreloader";
 
-export default function Login({ onLogin, isLoading, errorMessage }) {
-  const formWithValidation = useFormWithValidation();
-  const { email, password } = formWithValidation.values;
-  const { values, handleChange, errors, isValid, resetForm } = formWithValidation;
+export default function Login(props) {
+  const { values, errors, isValid, handleChange } = useFormWithValidation();
 
-  React.useEffect(() => {
-    resetForm();
-  }, [resetForm]);
-
-  function handleSubmit(evt) {
+  const handleSubmit = (evt) => {
     evt.preventDefault();
-    onLogin({ email, password });
+    props.onLogin(values.email, values.password);
   }
 
   return (
@@ -41,7 +34,7 @@ export default function Login({ onLogin, isLoading, errorMessage }) {
                   name="email"
                   value={values.email || ''}
                   onChange={handleChange}
-                  disabled={isLoading}
+                  disabled={props.isDisabledInput}
                   required
                   pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
@@ -55,7 +48,7 @@ export default function Login({ onLogin, isLoading, errorMessage }) {
                   name="password"
                   value={values.password || ''}
                   onChange={handleChange}
-                  disabled={isLoading}
+                  disabled={props.isDisabledInput}
                   required
                 />
                 <span className={`login__input-error ${errors.password && 'login__input-error_visible'}`}>{errors.password}</span>
@@ -63,12 +56,12 @@ export default function Login({ onLogin, isLoading, errorMessage }) {
             </div>
             <div className="login__button-container">
               <p
-                className={`login__message ${errorMessage && 'login__message_type_error'}`}>{errorMessage}
+                className={`login__message ${props.errorMessage && 'login__message_type_error'}`}>{props.errorMessage}
               </p>
               <button
                 className={`login__button ${!isValid && 'login__button_disabled'}`}
                 type="submit"
-                disabled={!isValid || isLoading}>Войти</button>
+                disabled={!isValid || props.isDisabledButton}>Войти</button>
               <p className="login__question">Ещё не зарегистрированы?
                 <Link className="login__link" to="/signup">Регистрация</Link>
               </p>
@@ -76,7 +69,6 @@ export default function Login({ onLogin, isLoading, errorMessage }) {
           </form>
         </div>
       </div>
-      <GlobalPreloader isLoading={isLoading} />
     </>
   );
 };

@@ -1,105 +1,108 @@
-import React from 'react';
+import React, { createRef, useContext, useEffect, useState } from 'react';
 import './Profile.css';
 import Header from "../Header/Header";
 import {useFormWithValidation} from "../../utils/ReactValidation";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import GlobalPreloader from "../GlobalPreloader/GlobalPreloader";
 
-export default function Profile({
-    isLoggedIn,
-    onLogout,
-    onOpenMenu,
-    onUpdate,
-    isLoading,
-    errorMessage,
-    setErrorMessage,
-    successMessage,
-    setSuccessMessage
-  }) {
-  const formWithValidation = useFormWithValidation();
-  const { name, email } = formWithValidation.values;
-  const { values, setValues, handleChange, errors, isValid } = formWithValidation;
-  const [ isEdited, setIsEdited ] = React.useState(false);
-  const currentUser = React.useContext(CurrentUserContext);
+export default function Profile(props) {
+  const nameInput = createRef();
+  const currentUser = useContext(CurrentUserContext)
+  const { values, setValues, errors, isValid, handleChange } = useFormWithValidation();
 
-  let isChanged = (currentUser.name !== values.name) || (currentUser.email !== values.email);
+  const [isActive, setIsActive] = useState(false);
+  const [inputActive, setInputActive] = useState(false);
 
-  React.useEffect(() => {
-    setValues(currentUser);
-    setSuccessMessage(false);
-    setErrorMessage(false);
-  }, []);
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onUpdate({ name, email });
-    setIsEdited(false);
+  useEffect(() => {
+    setValues({
+      name: currentUser.name,
+      email: currentUser.email
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentUser])
+
+  function editProfile() {
+    props.setIsErrorMessage('')
+    setIsActive(true);
+    setInputActive(true);
   }
 
-  function handleEditClick() {
-    setIsEdited(true);
-    setSuccessMessage(false);
+  const handleFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    props.onUpdateUser({
+      name: values.name,
+      email: values.email
+    });
+    setIsActive(false);
+  }
+
+  const handleToggle = () => {
+    setInputActive(false);
   }
 
   return (
     <>
-      <div className="profile">
-        <Header
-          isLoggedIn={isLoggedIn}
-          onOpenMenu={onOpenMenu}
-        />
-        <form
-          className="profile__form"
-          onSubmit={handleSubmit}
-          noValidate
-        >
-          <p className="profile__greeting">{`Привет, ${currentUser.name}!`}</p>
+      <Header
+        isLoggedIn={props.isLoggedIn}
+      />
+      <main className="profile">
+        <form className="profile__form" name="profile" onSubmit={handleFormSubmit}>
+        <p className="profile__greeting">{`Привет, ${currentUser.name}!`}</p>
           <div className="profile__inputs">
             <label className="profile__label">
               <input
                 className={`profile__input ${errors.name && 'profile__input_type_error'}`}
-                type="text"
+                type="name"
                 name="name"
                 minLength="2"
                 maxLength="30"
-                value={values.name || ''}
+                ref={nameInput}
+                disabled={!inputActive || props.isDisabledInput}
                 onChange={handleChange}
-                disabled={!isEdited || isLoading}
+                value={values.name || ''}
                 required
               />
               <span className="profile__input-title">Имя</span>
-              <span className={`profile__input-error ${errors.name && 'profile__input-error_visible'}`}>{errors.name}</span>
+              <span className='profile__input-error'>{errors.name}</span>
             </label>
+
+
             <label className="profile__label">
               <input
-                className={`profile__input ${errors.email && 'profile__input_type_error'}`}
+                className='profile__input'
                 type="email"
                 name="email"
-                value={values.email || ''}
+                pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,}$"
+                disabled={!inputActive || props.isDisabledInput}
                 onChange={handleChange}
-                disabled={!isEdited || isLoading}
+                value={values.email || ''}
                 required
               />
               <span className="profile__input-title">E-mail</span>
-              <span className={`profile__input-error ${errors.email && 'profile__input-error_visible'}`}>{errors.email}</span>
+              <span className='profile__input-error'>{errors.email}</span>
             </label>
-            <p className={`profile__message ${successMessage &&'profile__message_type_success'}`}>Данные успешно обновлены!</p>
           </div>
-          <div className={`profile__edit-container ${!isEdited && 'profile__edit-container_enabled'}`}>
-            <button className="profile__edit-button" type="button" onClick={handleEditClick}>Редактировать</button>
-            <button className="profile__quit-button" type="button" onClick={onLogout}>Выйти из аккаунта</button>
+
+          <span className="error-message">{props.isErrorMessage}</span>
+
+
+          <div className='profile__edit-container_enabled'>
+            <button className="profile__edit-button" type="button" onClick={editProfile}>Редактировать</button>
+
+            <button className="profile__quit-button" type="button" onClick={props.OnSignOut}>Выйти из аккаунта</button>
           </div>
-          <div className={`profile__save-container ${isEdited && 'profile__save-container_enabled'}`}>
-            <p className={`profile__message ${errorMessage && 'profile__message_type_error'}`}>{errorMessage}</p>
+          <div className='profile__save-container_enabled'>
+            <p className={`profile__message ${props.errorMessage && 'profile__message_type_error'}`}>{props.errorMessage}</p>
             <button
-              className={`profile__save-button ${(!isValid || !isChanged) && 'profile__save-button_disabled'}`}
               type="submit"
-              disabled={!isValid || isLoading || !isChanged}>Сохранить
-            </button>
+              className={`profile__save-button ${!isActive ? `profile__save-button_hidden` : ``} profile__save-button`}
+              disabled={!isValid || props.isDisabledButton || (currentUser.name === values.name && currentUser.email === values.email)}
+              onClick={handleToggle}
+            >Сохранить</button>
           </div>
         </form>
-      </div>
-      <GlobalPreloader isLoading={isLoading} />
+      </main>
     </>
-  )
+  );
 }
