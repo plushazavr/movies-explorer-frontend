@@ -223,8 +223,8 @@
 
 @media screen and (max-width: 810px) {
   .profile__form {
-    margin: 0 auto 34px;
-    /*max-height: 445px;*/
+    margin: 70px auto 34px;
+    max-height: 445px;
   }
 
   .profile__inputs {

@@ -189,10 +189,6 @@
 }
 
 @media screen and (max-width: 420px) {
-  .navigation {
-    margin: 144px auto 46px;
-  }
-
   .movies-navigation__element {
     margin-top: 24px;
   }
