@@ -1,67 +1,65 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SavedMovies.css';
 import Header from "../Header/Header";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Footer from "../Footer/Footer";
 import SearchForm from "../SearchForm/SearchForm";
+import Preloader from "../Preloader/Preloader";
 
 export default function SavedMovies(
-  {
-    isLoggedIn,
-    onOpenMenu,
-    savedMovies,
-    handleGetSavedMovies,
-    handleRemoveMovie,
-    onSearch,
-    onFilter,
+  {isLoggedIn,
     isLoading,
-    globalError,
-  }) {
+    setIsLoading,
+    isNotMovies,
+    setIsNotMovies,
+    isChecked,
+    setIsChecked,
+    movies,
+    setShownMovies,
+    shownMovies,
+    onCardDelete,
+    onSearch}) {
 
-  React.useEffect(() => {
-    handleGetSavedMovies();
-  }, []);
+  const pageSavedMovies = true;
 
-  const [ searchInput, setSearchInput ] = React.useState([]);
-  const [ checkboxActivated, setCheckboxActivated ] = React.useState(false);
-  const [ foundMovies, setFoundMovies ] = React.useState(savedMovies);
-  const [ filteredMovies, setFilteredMovies ] = React.useState([]);
-
-  React.useEffect(() => {
-    searchHandler();
-    filterHandler();
-  }, [checkboxActivated, searchInput, handleRemoveMovie]);
-
-  function searchHandler() {
-    setFoundMovies(onSearch(savedMovies, searchInput));
-  }
-
-  function filterHandler() {
-    setFilteredMovies(onFilter(foundMovies));
-  }
+  useEffect(() => {
+    setIsNotMovies(false)
+    setIsChecked(false)
+    setShownMovies(movies)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
-    <div className="saved-movies">
+    <>
+      <div className="saved-movies">
       <Header
-        isLoggedIn={isLoggedIn}
-        onOpenMenu={onOpenMenu}
-      />
-
-      <SearchForm
-        isLoading={isLoading}
-        setSearchInput={setSearchInput}
-        setCheckboxActivated={setCheckboxActivated}
-      />
-
-      <MoviesCardList
-        isSavedMoviesList={true}
-        savedMovies={savedMovies}
-        handleRemoveMovie={handleRemoveMovie}
-        moviesList={checkboxActivated ? filteredMovies : foundMovies}
-        globalError={globalError}
-      />
-
-      <Footer/>
-    </div>
+          isLoggedIn={isLoggedIn}
+        />      
+          <SearchForm
+            isLoading={isLoading}
+            setIsLoading={setIsLoading}
+            movies={movies}
+            shownMovies={shownMovies}
+            setMovies={setShownMovies}
+            setIsNotMovies={setIsNotMovies}
+            isChecked={isChecked}
+            setIsChecked={setIsChecked}
+            pageSavedMovies={pageSavedMovies}
+            onSearch={onSearch}
+          />
+          {isLoading
+            ? <Preloader /> : ''}
+          {isNotMovies
+            ? <p className="cards__empty">Ничего не найдено</p>
+            : <MoviesCardList
+              movies={shownMovies}
+              setShownMovies={setShownMovies}
+              onCardDelete={onCardDelete}
+              pageSavedMovies={pageSavedMovies}
+            />
+          }      
+        <Footer />
+      </div>      
+    </>
   )
 }

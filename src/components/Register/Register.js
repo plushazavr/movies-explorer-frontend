@@ -3,21 +3,13 @@ import { Link } from "react-router-dom";
 import './Register.css';
 import logo from '../../images/logo.svg';
 import { useFormWithValidation } from '../../utils/ReactValidation';
-import GlobalPreloader from "../GlobalPreloader/GlobalPreloader";
 
-export default function Register({ onRegister, isLoading, errorMessage }) {
-  const formWithValidation = useFormWithValidation();
-  const { name, email, password } = formWithValidation.values;
-  const { values, handleChange, errors, isValid, resetForm } = formWithValidation;
+export default function Register(props) {const { values, errors, isValid, handleChange } = useFormWithValidation();
 
-  React.useEffect(() => {
-    resetForm();
-  }, [resetForm]);
-
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    onRegister({ name, email, password });
-  }
+const handleSubmit = (evt) => {
+  evt.preventDefault();
+  props.onRegister(values.name, values.email, values.password);
+}
 
   return (
     <>
@@ -36,14 +28,14 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
               <label className="register__label">
                 <span className="register__input-title">Имя</span>
                 <input
-                  className={`register__input ${errors.name && 'register__input_type_error'}`}
+                  className='register__input'
                   type="text"
                   name="name"
                   minLength="2"
                   maxLength="30"
                   value={values.name || ''}
                   onChange={handleChange}
-                  disabled={isLoading}
+                  disabled={props.isDisabledInput}
                   required
                 />
                 <span className={`register__input-error ${errors.name && 'register__input-error_visible'}`}>{errors.name}</span>
@@ -51,12 +43,12 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
               <label className="register__label">
                 <span className="register__input-title">E-mail</span>
                 <input
-                  className={`register__input ${errors.email && 'register__input_type_error'}`}
+                  className='register__input'
                   type="email"
                   name="email"
                   value={values.email || ''}
                   onChange={handleChange}
-                  disabled={isLoading}
+                  disabled={props.isDisabledInput}
                   required
                   pattern="[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}"
                 />
@@ -65,13 +57,13 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
               <label className="register__label">
                 <span className="register__input-title">Пароль</span>
                 <input
-                  className={`register__input ${errors.password && 'register__input_type_error'}`}
+                  className='register__input'
                   type="password"
                   name="password"
                   minLength="8"
                   value={values.password || ''}
                   onChange={handleChange}
-                  disabled={isLoading}
+                  disabled={props.isDisabledInput}
                   required
                 />
                 <span className={`register__input-error ${errors.password && 'register__input-error_visible'}`}>{errors.password}</span>
@@ -79,12 +71,12 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
             </div>
             <div className="register__button-container">
               <p
-                className={`register__message ${errorMessage && 'register__message_type_error'}`}>{errorMessage}
+                className={`register__message ${props.errorMessage && 'register__message_type_error'}`}>{props.errorMessage}
               </p>
               <button
                 className={`register__button ${!isValid && 'register__button_disabled'}`}
                 type="submit"
-                disabled={!isValid || isLoading}>Зарегистрироваться
+                disabled={!isValid || props.isDisabledButton}>Зарегистрироваться
               </button>
               <p className="register__question">Уже зарегистрированы?
                 <Link className="register__link" to="/signin">Войти</Link>
@@ -93,7 +85,6 @@ export default function Register({ onRegister, isLoading, errorMessage }) {
           </form>
         </div>
       </div>
-      <GlobalPreloader isLoading={isLoading} />
     </>
   );
 };
