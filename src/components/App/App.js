@@ -67,11 +67,11 @@ function App() {
 
     auth
       .login(email, password)
-      .then((res) => {
-        setCurrentUser(res)
+      .then((res) => {        
+        setCurrentUser(res)              
         setIsLoggedIn(true)
-        setIsErrorMessage('')        
-        history.push('/movies')
+        history.push('/movies')            
+        setIsErrorMessage('')
       })
       .catch((err) => {
         if (400) {
