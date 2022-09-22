@@ -69,9 +69,9 @@ function App() {
       .login(email, password)
       .then((res) => {
         setCurrentUser(res)
-        history.push("/movies")
         setIsLoggedIn(true)
-        setIsErrorMessage('')
+        setIsErrorMessage('')        
+        history.push('/movies')
       })
       .catch((err) => {
         if (400) {
