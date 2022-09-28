@@ -23,11 +23,11 @@ export default function Movies({
   onCardSaved,
   onSearch}) {
 
-    useEffect(() => {
+     useEffect(() => {
       const lastSearchedMovies = JSON.parse(localStorage.getItem("searchMovies"));
       const lastShortMovies = JSON.parse(localStorage.getItem("shortMovies"));
       const lastCheckboxState = JSON.parse(localStorage.getItem('lastCheckboxState'));
-  
+       
       setIsNotMovies(false)
       setIsChecked(lastCheckboxState)
   
@@ -35,7 +35,8 @@ export default function Movies({
         setShownMovies([])
       } else {
         if (lastCheckboxState === true) {
-          if (lastShortMovies.length === 0) {
+          
+          if (lastShortMovies === null) {
             setIsNotMovies(true)
           } else {
             setIsNotMovies(false)
@@ -50,7 +51,7 @@ export default function Movies({
           }
         }
       }
-    }, [])
+    }, []) 
     
     return (
     <div className="movies">

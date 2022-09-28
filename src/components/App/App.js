@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import Header from "../Header/Header";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import Main from "../Main/Main";
 import Register from "../Register/Register";
@@ -20,7 +20,7 @@ import { filterDuration, filterMovies } from "../../utils/FilterMovies";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(undefined);
   const [currentUser, setCurrentUser] = useState({});
-  const allMovies = JSON.parse(localStorage.getItem('allMovies'));
+  /* const allMovies = JSON.parse(localStorage.getItem('allMovies')); */
   const [shownMovies, setShownMovies] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
   const [shownSavedMovies, setShownSavedMovies] = useState([])
@@ -30,10 +30,11 @@ function App() {
   const [isErrorMessage, setIsErrorMessage] = useState('');
   const [isDisabledInput, setIsDisabledInput] = useState(false);
   const [isDisabledButton, setIsDisabledButton] = useState(false)
-
+  
   const history = useHistory();
-
+  const pathname = useLocation();
   useEffect(() => {
+     
     if (isLoggedIn) {
       Promise.all([api.getUserInfo(), api.getInitialMovies()])
         .then(([userInfo, InitialMovies]) => {
@@ -144,6 +145,7 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
+      setIsChecked(false)
       setIsLoading(true);
       if (localStorage.getItem("allMovies")) {
         JSON.parse(localStorage.getItem("allMovies"))
@@ -162,6 +164,7 @@ function App() {
   }, [isLoggedIn]);
 
   const handleMovieSave = (movie) => {
+    if(savedMovies.find(item => item.trailerLink === movie.trailerLink)){return};    
     setIsLoading(true)
     api
       .saveNewMovie(movie)
@@ -183,8 +186,9 @@ function App() {
       .finally(() => setIsLoading(false));
   }
 
-  const searchMovies = (title) => {
-    const shortMovies = filterDuration(allMovies)
+  const searchMovies = (title, isChecked) => {
+    console.log(title)
+    const shortMovies = filterDuration(JSON.parse(localStorage.getItem('allMovies')))
     setIsNotMovies(false)
     if (Boolean(isChecked)) {
       const shortResult = filterMovies(shortMovies, title)
@@ -193,11 +197,11 @@ function App() {
         localStorage.setItem("shortMovies", JSON.stringify([]));
       } else {
         localStorage.setItem("shortMovies", JSON.stringify(shortResult));
-        setShownMovies(shortResult)
+        setShownMovies(shortResult) 
       }
 
     } else {
-      const allResult = filterMovies(allMovies, title)
+      const allResult = filterMovies(JSON.parse(localStorage.getItem('allMovies')), title)
       if (allResult.length === 0) {
         setIsNotMovies(true)
         localStorage.setItem("searchMovies", JSON.stringify([]));
@@ -205,10 +209,20 @@ function App() {
         localStorage.setItem("searchMovies", JSON.stringify(allResult));
         setShownMovies(allResult)
       }
+      const shortResult = filterMovies(shortMovies, title)
+      if (localStorage.getItem("shortMovies")){localStorage.removeItem("shortMovies");}
+      if (shortResult.length === 0) {
+        localStorage.setItem("shortMovies", JSON.stringify([]));
+        setIsNotMovies(true);
+    }
+      else {
+        localStorage.setItem("shortMovies", JSON.stringify(shortResult));
+        
+      }
     }
 
     localStorage.setItem("lastMoviesRequest", JSON.stringify(title));
-    localStorage.setItem("lastCheckboxState", JSON.stringify(Boolean(isChecked)));
+    
   }
 
   const searchSavedMovies = (title) => {
@@ -233,13 +247,14 @@ function App() {
       }
     }
   }
+  /*  */
 
   const handleSignOut = () => {
     auth
       .logout()
       .then((res) => {
-        setIsLoggedIn(false);
-        localStorage.clear();
+        setIsLoggedIn(false);          
+        isChecked(false)
         setCurrentUser({})
 
         history.push("/");
@@ -247,6 +262,12 @@ function App() {
       .catch((err) => {
         console.log('ERROR =>', err)
       })
+      localStorage.removeItem("allMovies");
+      localStorage.removeItem("InitialMovies");
+      localStorage.removeItem("shortMovies");
+      localStorage.removeItem("searchMovies");
+      localStorage.removeItem("lastMoviesRequest");
+      localStorage.removeItem("lastCheckboxState");
   }
 
   return (
@@ -273,7 +294,7 @@ function App() {
             setIsNotMovies={setIsNotMovies}
             isChecked={isChecked}
             setIsChecked={setIsChecked}
-            movies={allMovies}
+            movies={JSON.parse(localStorage.getItem('allMovies'))}
             setShownMovies={setShownMovies}
             shownMovies={shownMovies}
             savedMovies={savedMovies}

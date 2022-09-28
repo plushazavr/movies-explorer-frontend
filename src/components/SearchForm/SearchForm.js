@@ -14,9 +14,12 @@ function SearchForm({
   shownMovies,
   onSearch
 }) {
-  const handleToggle = () => {
+   
+  const handleToggle = () => {    
+    
     setIsChecked(!isChecked);
-    checkboxActive(!isChecked)
+    checkboxActive(!isChecked);
+    if (!pageSavedMovies) {localStorage.setItem("lastCheckboxState", JSON.stringify(Boolean(!isChecked)))};  
   }
 
   const [isSearch, setIsSearch] = useState('');
@@ -40,6 +43,7 @@ function SearchForm({
   }
 
   const checkboxActive = (isChecked) => {
+    if(isSearch === null){return} 
     setIsNotMovies(false)
     if (isChecked) {
       filterDuration(shownMovies).length === 0
@@ -56,7 +60,7 @@ function SearchForm({
 
   const handleFormSubmit = (evt) => {
     evt.preventDefault();
-
+    /* if(isSearch === null ){return} */
     if (!isSearch) {
       setIsError(true)
     } else {
@@ -96,6 +100,7 @@ function SearchForm({
               id="checkbox"
               checked={isChecked}
               onChange={handleToggle}
+              
             />
             <span className="search-form__checkbox-slider" />
           </div>
