@@ -44,6 +44,7 @@ function App() {
           localStorage.setItem("InitialMovies", JSON.stringify(InitialMovies))
         })
         .catch((err) => console.log("ERROR! =>", err));
+          
     }
   }, [isLoggedIn]);
 
@@ -74,7 +75,9 @@ function App() {
         history.push('/movies')            
         setIsErrorMessage('')
       })
-      .catch((err) => {
+      .catch((err) => {        
+        setIsDisabledInput(false)
+        setIsDisabledButton(false)
         if (400) {
           setIsErrorMessage('Вы ввели неправильный логин или пароль.');
         } else {
@@ -84,8 +87,6 @@ function App() {
       })
       .finally(() => {
         setIsLoading(false)
-        setIsDisabledInput(false)
-        setIsDisabledButton(false)
       }
       )
   }
@@ -102,7 +103,9 @@ function App() {
         hadleLogin(email, password)
         setIsErrorMessage('')
       })
-      .catch((err) => {
+      .catch((err) => {        
+        setIsDisabledInput(false)
+        setIsDisabledButton(false)
         if (409) {
           setIsErrorMessage('Пользователь с таким email уже существует.');
         } else {
@@ -111,8 +114,6 @@ function App() {
       })
       .finally(() => {
         setIsLoading(false)
-        setIsDisabledInput(false)
-        setIsDisabledButton(false)
       }
       )
   }
@@ -256,8 +257,8 @@ function App() {
         setIsLoggedIn(false);          
         isChecked(false)
         setCurrentUser({})
-
         history.push("/");
+        
       })
       .catch((err) => {
         console.log('ERROR =>', err)
